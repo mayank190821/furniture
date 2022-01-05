@@ -1,7 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import Signup from "../components/signup";
-import { Typography,Button } from "@mui/material";
+import { Typography, Button } from "@mui/material";
+import Login from "../components/login";
+
 export default function LoginPage() {
+  const [page, setPage] = useState(true);
+
+  function handlePageChange() {
+    (page)?setPage(false):setPage(true);
+  }
   return (
     <>
       <div
@@ -13,10 +20,10 @@ export default function LoginPage() {
           style={{
             width: "55%",
             height: "100vh",
-            display:"flex",
-            flexDirection:"column",
-            flexWrap:"wrap",
-            justifyContent:"center",
+            display: "flex",
+            flexDirection: "column",
+            flexWrap: "wrap",
+            justifyContent: "center",
             background:
               "linear-gradient(15deg, rgb(0 0 0 / 81%), rgb(0 0 0 / 22%)), url('./images/living-room-6399504.jpg') no-repeat center center /cover",
           }}
@@ -28,7 +35,7 @@ export default function LoginPage() {
               fontSize: "60px",
               textAlign: "center",
               lineHeight: 1,
-            //   paddingTop: "160px",
+              //   paddingTop: "160px",
               color: "#00cba9",
               textShadow: "5px 0px 5px black",
             }}
@@ -41,21 +48,36 @@ export default function LoginPage() {
               fontSize: "25px",
               textAlign: "center",
               textTransform: "capitalize",
-              fontWeight:"bold",
-              textShadow:"2px 0 15px black"
+              fontWeight: "bold",
+              textShadow: "2px 0 15px black",
             }}
           >
             {" "}
             We serve the best Product
             <br /> Quality is the key of our Success
-          <br/>
-          <Button variant="contained" style={{color:"black",marginTop:"15px", fontSize:"17px", fontWeight:"bold", background:"#00cba9"}} >
-              LogIn <i class="fa fa-arrow-right" aria-hidden="true" style={{marginLeft:"3px"}}></i>
-          </Button>
+            <br />
+            <Button
+              variant="contained"
+              onClick={handlePageChange}
+              style={{
+                color: "black",
+                marginTop: "15px",
+                fontSize: "17px",
+                fontWeight: "bold",
+                background: "#00cba9",
+              }}
+            >
+              {(page) ? "SignUp" : "login"}
+              <i
+                class="fa fa-arrow-right"
+                aria-hidden="true"
+                style={{ marginLeft: "3px" }}
+              ></i>
+            </Button>
           </Typography>
         </div>
         <div className="cont2" style={{ margin: "auto" }}>
-          <Signup />
+          {(page) ? <Login /> : <Signup />}
         </div>
       </div>
     </>

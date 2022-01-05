@@ -5,7 +5,7 @@ import { makeStyles } from "@mui/styles";
 import { Button, Stack } from "@mui/material";
 const useStyle = makeStyles((theme) => ({
   input: {
-    width: "40%",
+    width: "90%",
     height: "35px",
     position: "relative",
     borderTop: "transparent",
@@ -13,27 +13,8 @@ const useStyle = makeStyles((theme) => ({
     borderRight: "transparent",
     borderRadius: "0px",
     border: "3px solid grey",
-    textTransform:"capitalize",
-    textIndent:"5px",
     margin: "10px !important",
-    fontSize: "17px",
-    "&:focus": {
-      borderBottom: "3px solid #00cba9",
-      outline: "none",
-    },
-  },
-  inputAdd: {
-    width: "85%",
-    height: "35px",
-    position: "relative",
-    textTransform:"capitalize",
     textIndent:"5px",
-    borderTop: "transparent",
-    borderLeft: "transparent",
-    borderRight: "transparent",
-    borderRadius: "0px",
-    border: "3px solid grey",
-    margin: "10px !important",
     fontSize: "17px",
     "&:focus": {
       borderBottom: "3px solid #00cba9",
@@ -51,19 +32,19 @@ export default function Login() {
             display: "flex",
             flexWrap: "wrap",
             "& > :not(style)": {
-              width: 458,
-              height: 528,
+              width: 378,
+              height: 438,
             },
           }}
         >
-          <Paper elevation={15} style={{borderRadius:"10px"}}>
+          <Paper elevation={15} style={{ borderRadius: "10px" }}>
             <h1
               style={{ color: "#00cba9", textAlign: "center", margin: "15px" }}
             >
-              SignUp
+              LogIn
             </h1>
             <Stack
-              spacing={1}
+              spacing={2}
               direction="column"
               style={{
                 alignItems: "center",
@@ -80,36 +61,9 @@ export default function Login() {
                 <input
                   type="text"
                   className={style.input}
-                  placeholder="First Name"
-                />
-                <input
-                  type="text"
-                  className={style.input}
-                  placeholder="Last Name"
+                  placeholder="Phone / Email"
                 />
               </Stack>
-              <Stack
-                direction="row"
-                spacing={1}
-                style={{ display: "flex", justifyContent: "center" }}
-              >
-                <input
-                  type="text"
-                  className={style.input}
-                  placeholder="Phone Number"
-                />
-                <input
-                  type="email"
-                  className={style.input}
-                  style={{textTransform:"lowercase"}}
-                  placeholder="Email"
-                />
-              </Stack>
-              <input
-                type="text"
-                className={style.inputAdd}
-                placeholder="Address"
-              />
               <Stack
                 direction="row"
                 spacing={2}
@@ -118,21 +72,37 @@ export default function Login() {
                 <input
                   type="password"
                   className={style.input}
-                  placeholder="password"
+                  placeholder="Password"
                 />
-                <input
-                  type="password"
-                  className={style.input}
-                  placeholder="confirm password"
-                />
+              </Stack>
+              <Stack 
+              direction="row"
+              spacing={4}
+              >
+                <Stack direction="row" spacing={1}>
+                  <input type="checkbox" name="check" id="check" />
+                  <label htmlFor="check" id="check">
+                    Remember
+                  </label>
+                </Stack>
+                <Stack>
+                    <a style={{textDecoration:"none"}}
+                     href="www.com">Forget Password?</a>
+                </Stack>
               </Stack>
               <Button
                 type="submit"
                 variant="contained"
-                style={{ backgroundColor: "#00cba9", fontWeight:"bold", fontSize:"15px", bottom:-10 }}
+                style={{
+                  backgroundColor: "#00cba9",
+                  fontWeight: "bold",
+                  fontSize: "15px",
+                  bottom: -10,
+                  zIndex:"2"
+                }}
               >
                 {" "}
-                Sign up
+                Login
               </Button>
               <svg
                 viewBox="0 0 640 325"
