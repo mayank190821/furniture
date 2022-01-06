@@ -1,5 +1,5 @@
 import Paper from "@mui/material/Paper";
-import React from "react";
+import React,{useState} from "react";
 import Box from "@mui/material/Box";
 import { makeStyles } from "@mui/styles";
 import { Button, Stack } from "@mui/material";
@@ -43,6 +43,40 @@ const useStyle = makeStyles((theme) => ({
 }));
 export default function Login() {
   const style = useStyle();
+  const [user,setUser]=useState({
+    firstName:"",
+    lastName:"",
+    phoneNumber:"",
+    address:"",
+    email:"",
+    password:"",
+    confirmPassword:""
+  })
+
+  const handleChange=(name)=>(event)=>{
+    setUser({...user, [name]:event.target.value});
+  }
+
+  const verifyName=(element)=>{
+    let nameRegex = /^([\w])+$/;
+    const name=(element === "firstName")?user.firstName:user.lastName;
+    console.log(name)
+    console.log(nameRegex.test(user.name))
+  }
+  const validation=()=>{
+    const phoneRegex= /^[0-9]+.{9,10}$/;
+    const emailRegex = /^(.*[a-z0-9]+@(.*[a-z]\.(.*[a-z])))$/;
+    const passwordRegex = /^([0-9]*)(?=.*[a-z])(?=.*[!@#$%^&])(?=.*[^a-z0-9A-Z]).{8,20}$/
+    if(emailRegex.test(user.userInput)){
+        console.log("email verified")
+      }
+      if(phoneRegex.test(user.userInput) && user.userInput.length===10){
+      console.log("phone verified");
+    }
+    console.log(passwordRegex.test(user.password))
+    console.log(user.password)
+
+}
   return (
     <>
       <div>
@@ -81,11 +115,20 @@ export default function Login() {
                   type="text"
                   className={style.input}
                   placeholder="First Name"
+                  required
+                  onChange={handleChange('firstName')}
+                  value={user.firstName}
+                  onKeyUp={verifyName("firstName")}
                 />
                 <input
                   type="text"
                   className={style.input}
                   placeholder="Last Name"
+                  required
+                  onChange={handleChange("lastName")}
+                  value={user.lastName}
+                  onKeyUp={verifyName("lastName")}
+
                 />
               </Stack>
               <Stack
@@ -97,19 +140,29 @@ export default function Login() {
                   type="text"
                   className={style.input}
                   placeholder="Phone Number"
+                  required
+                  onChange={handleChange('phoneNumber')}
+                  value={user.phoneNumber}
                 />
                 <input
                   type="email"
                   className={style.input}
                   style={{textTransform:"lowercase"}}
                   placeholder="Email"
+                  required
+                  onChange={handleChange('email')}
+                  value={user.email}
+                  onKeyUp={validation}
                 />
               </Stack>
               <input
                 type="text"
                 className={style.inputAdd}
                 placeholder="Address"
-              />
+                required
+                onChange={handleChange("address")}
+                value={user.address}
+                />
               <Stack
                 direction="row"
                 spacing={2}
@@ -119,17 +172,26 @@ export default function Login() {
                   type="password"
                   className={style.input}
                   placeholder="password"
+                  required
+                  onChange={handleChange("password")}
+                  value={user.password}
+                  onKeyUp={validation}
                 />
                 <input
                   type="password"
                   className={style.input}
                   placeholder="confirm password"
+                  required
+                  onChange={handleChange("confirmPassword")}
+                  value={user.confirmPassword}
+                  onKeyUp={validation}
+                  
                 />
               </Stack>
               <Button
                 type="submit"
                 variant="contained"
-                style={{ backgroundColor: "#00cba9", fontWeight:"bold", fontSize:"15px", bottom:-10 }}
+                style={{ backgroundColor: "#00cba9", fontWeight:"bold", fontSize:"15px", bottom:-10,zIndex:"2" }}
               >
                 {" "}
                 Sign up
