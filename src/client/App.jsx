@@ -1,11 +1,11 @@
-import React from 'react';
-import ShoppingPage from './user/pages/shoppingPage';
-// import LoginPage from './user/pages/loginPage';
+import React from "react";
+import ShoppingPage from "./user/pages/shoppingPage";
+// import LoginPage from "./user/pages/loginPage";
 function App() {
   return (
     <>
-      {/* <LoginPage/> */}
-      <ShoppingPage/>
+      {/* <LoginPage /> */}
+      <ShoppingPage />
     </>
   );
 }

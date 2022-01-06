@@ -1,5 +1,5 @@
 import Paper from "@mui/material/Paper";
-import React, {useState} from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import { makeStyles } from "@mui/styles";
 import { Button, Stack } from "@mui/material";
@@ -14,7 +14,7 @@ const useStyle = makeStyles((theme) => ({
     borderRadius: "0px",
     border: "3px solid grey",
     margin: "10px !important",
-    textIndent:"5px",
+    textIndent: "5px",
     fontSize: "17px",
     "&:focus": {
       borderBottom: "3px solid #00cba9",
@@ -24,27 +24,27 @@ const useStyle = makeStyles((theme) => ({
 }));
 export default function Login() {
   const style = useStyle();
-  const [user,setUser]=useState({
-      userInput:"",
-      password:""
-  })
-  const handleChange=(name)=>(event)=>{
-    setUser({...user,[name]: event.target.value});
-  }
-  const validation=()=>{
-      const phoneRegex= /^[0-9]+.{9,10}$/;
-      const emailRegex = /^(.*[a-z0-9]+@(.*[a-z]\.(.*[a-z])))$/;
-      const passwordRegex = /^([0-9]*)(?=.*[a-z])(?=.*[!@#$%^&])(?=.*[^a-z0-9A-Z]).{8,20}$/
-      if(emailRegex.test(user.userInput)){
-          console.log("email verified")
-        }
-        if(phoneRegex.test(user.userInput) && user.userInput.length===10){
-        console.log("phone verified");
-      }
-      console.log(passwordRegex.test(user.password))
-      console.log(user.password)
-
-  }
+  const [user, setUser] = useState({
+    userInput: "",
+    password: "",
+  });
+  const handleChange = (name) => (event) => {
+    setUser({ ...user, [name]: event.target.value });
+  };
+  const validation = () => {
+    const phoneRegex = /^[0-9]{10}$/;
+    const emailRegex = /^(.*[a-z0-9]+@(.*[a-z]\.(.*[a-z])))$/;
+    const passwordRegex =
+      /^([0-9]*)(?=.*[a-z])(?=.*[!@#$%^&])(?=.*[^a-z0-9A-Z]).{8,20}$/;
+    if (emailRegex.test(user.userInput)) {
+      console.log("email verified");
+    }
+    if (phoneRegex.test(user.userInput)) {
+      console.log("phone verified");
+    }
+    console.log(passwordRegex.test(user.password));
+    console.log(user.password);
+  };
   return (
     <>
       <div>
@@ -102,10 +102,7 @@ export default function Login() {
                   onKeyUp={validation}
                 />
               </Stack>
-              <Stack 
-              direction="row"
-              spacing={4}
-              >
+              <Stack direction="row" spacing={4}>
                 <Stack direction="row" spacing={1}>
                   <input type="checkbox" name="check" id="check" />
                   <label htmlFor="check" id="check">
@@ -113,8 +110,9 @@ export default function Login() {
                   </label>
                 </Stack>
                 <Stack>
-                    <a style={{textDecoration:"none"}}
-                     href="www.com">Forget Password?</a>
+                  <a style={{ textDecoration: "none" }} href="www.com">
+                    Forget Password?
+                  </a>
                 </Stack>
               </Stack>
               <Button
@@ -125,7 +123,7 @@ export default function Login() {
                   fontWeight: "bold",
                   fontSize: "15px",
                   bottom: -10,
-                  zIndex:"2"
+                  zIndex: "2",
                 }}
               >
                 {" "}
