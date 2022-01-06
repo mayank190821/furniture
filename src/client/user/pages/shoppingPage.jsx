@@ -5,13 +5,12 @@ import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-// import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
 // import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import { Button } from "@mui/material";
-import {makeStyles} from "@mui/styles";
+import { makeStyles } from "@mui/styles";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -54,17 +53,17 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const useStyle = makeStyles((theme)=>({
-    button:{
-        "&:hover":{
-            color:"black",
-            background:"#66ffb8 !important"
-        }
-    }
+const useStyle = makeStyles((theme) => ({
+  button: {
+    "&:hover": {
+      color: "black",
+      background: "#66ffb8 !important",
+    },
+  },
 }));
 
 export default function ShoppingPage() {
-    const style = useStyle();
+  const style = useStyle();
 
   return (
     <>
@@ -96,11 +95,24 @@ export default function ShoppingPage() {
                 inputProps={{ "aria-label": "search" }}
               />
             </Search>
-            <Button  className={style.button}variant="contained" sx={{ backgroundColor:"white",color:"#07a389",fontWeight:"bold",marginLeft: "auto", marginRight:"15px" }}>
+            <Button
+              className={style.button}
+              variant="contained"
+              sx={{
+                backgroundColor: "white",
+                color: "#07a389",
+                fontWeight: "bold",
+                marginLeft: "auto",
+                marginRight: "15px",
+              }}
+            >
               Login
             </Button>
-            <IconButton sx={{color:"white", margin:"0 35px" }} aria-label="add to shopping cart">
-              <AddShoppingCartIcon /> 
+            <IconButton
+              sx={{ color: "white", margin: "0 35px" }}
+              aria-label="add to shopping cart"
+            >
+              <AddShoppingCartIcon />
             </IconButton>
           </Toolbar>
         </AppBar>

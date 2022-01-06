@@ -1,5 +1,5 @@
 import Paper from "@mui/material/Paper";
-import React,{useState} from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import { makeStyles } from "@mui/styles";
 import { Button, Stack } from "@mui/material";
@@ -13,8 +13,8 @@ const useStyle = makeStyles((theme) => ({
     borderRight: "transparent",
     borderRadius: "0px",
     border: "3px solid grey",
-    textTransform:"capitalize",
-    textIndent:"5px",
+    textTransform: "capitalize",
+    textIndent: "5px",
     margin: "10px !important",
     fontSize: "17px",
     "&:focus": {
@@ -26,8 +26,8 @@ const useStyle = makeStyles((theme) => ({
     width: "85%",
     height: "35px",
     position: "relative",
-    textTransform:"capitalize",
-    textIndent:"5px",
+    textTransform: "capitalize",
+    textIndent: "5px",
     borderTop: "transparent",
     borderLeft: "transparent",
     borderRight: "transparent",
@@ -43,40 +43,40 @@ const useStyle = makeStyles((theme) => ({
 }));
 export default function Login() {
   const style = useStyle();
-  const [user,setUser]=useState({
-    firstName:"",
-    lastName:"",
-    phoneNumber:"",
-    address:"",
-    email:"",
-    password:"",
-    confirmPassword:""
-  })
+  const [user, setUser] = useState({
+    firstName: "",
+    lastName: "",
+    phoneNumber: "",
+    address: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
 
-  const handleChange=(name)=>(event)=>{
-    setUser({...user, [name]:event.target.value});
-  }
+  const handleChange = (name) => (event) => {
+    setUser({ ...user, [name]: event.target.value });
+  };
 
-  const verifyName=(element)=>{
-    let nameRegex = /^([\w])+$/;
-    const name=(element === "firstName")?user.firstName:user.lastName;
-    console.log(name)
-    console.log(nameRegex.test(user.name))
-  }
-  const validation=()=>{
-    const phoneRegex= /^[0-9]+.{9,10}$/;
+  const verifyName = (element) => {
+    let nameRegex = /^[a-zA-Z]+$/;
+    const name = element === "firstName" ? user.firstName : user.lastName;
+    console.log(name);
+    console.log(nameRegex.test(name));
+  };
+  const validation = () => {
+    const phoneRegex = /^[0-9]{10}$/;
     const emailRegex = /^(.*[a-z0-9]+@(.*[a-z]\.(.*[a-z])))$/;
-    const passwordRegex = /^([0-9]*)(?=.*[a-z])(?=.*[!@#$%^&])(?=.*[^a-z0-9A-Z]).{8,20}$/
-    if(emailRegex.test(user.userInput)){
-        console.log("email verified")
-      }
-      if(phoneRegex.test(user.userInput) && user.userInput.length===10){
+    const passwordRegex =
+      /^([0-9]*)(?=.*[a-z])(?=.*[!@#$%^&])(?=.*[^a-z0-9A-Z]).{8,20}$/;
+    if (emailRegex.test(user.userInput)) {
+      console.log("email verified");
+    }
+    if (phoneRegex.test(user.userInput)) {
       console.log("phone verified");
     }
-    console.log(passwordRegex.test(user.password))
-    console.log(user.password)
-
-}
+    console.log(passwordRegex.test(user.password));
+    console.log(user.password);
+  };
   return (
     <>
       <div>
@@ -90,7 +90,7 @@ export default function Login() {
             },
           }}
         >
-          <Paper elevation={15} style={{borderRadius:"10px"}}>
+          <Paper elevation={15} style={{ borderRadius: "10px" }}>
             <h1
               style={{ color: "#00cba9", textAlign: "center", margin: "15px" }}
             >
@@ -116,7 +116,7 @@ export default function Login() {
                   className={style.input}
                   placeholder="First Name"
                   required
-                  onChange={handleChange('firstName')}
+                  onChange={handleChange("firstName")}
                   value={user.firstName}
                   onKeyUp={verifyName("firstName")}
                 />
@@ -128,7 +128,6 @@ export default function Login() {
                   onChange={handleChange("lastName")}
                   value={user.lastName}
                   onKeyUp={verifyName("lastName")}
-
                 />
               </Stack>
               <Stack
@@ -141,16 +140,16 @@ export default function Login() {
                   className={style.input}
                   placeholder="Phone Number"
                   required
-                  onChange={handleChange('phoneNumber')}
+                  onChange={handleChange("phoneNumber")}
                   value={user.phoneNumber}
                 />
                 <input
                   type="email"
                   className={style.input}
-                  style={{textTransform:"lowercase"}}
+                  style={{ textTransform: "lowercase" }}
                   placeholder="Email"
                   required
-                  onChange={handleChange('email')}
+                  onChange={handleChange("email")}
                   value={user.email}
                   onKeyUp={validation}
                 />
@@ -162,7 +161,7 @@ export default function Login() {
                 required
                 onChange={handleChange("address")}
                 value={user.address}
-                />
+              />
               <Stack
                 direction="row"
                 spacing={2}
@@ -185,13 +184,18 @@ export default function Login() {
                   onChange={handleChange("confirmPassword")}
                   value={user.confirmPassword}
                   onKeyUp={validation}
-                  
                 />
               </Stack>
               <Button
                 type="submit"
                 variant="contained"
-                style={{ backgroundColor: "#00cba9", fontWeight:"bold", fontSize:"15px", bottom:-10,zIndex:"2" }}
+                style={{
+                  backgroundColor: "#00cba9",
+                  fontWeight: "bold",
+                  fontSize: "15px",
+                  bottom: -10,
+                  zIndex: "2",
+                }}
               >
                 {" "}
                 Sign up
