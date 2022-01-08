@@ -46,7 +46,14 @@ export default function Carosel() {
   };
   return (
     <>
-      <Box sx={{ maxWidth: "100%", flexGrow: 1, marginTop: "15px" }}>
+      <Box
+        sx={{
+          maxWidth: "100%",
+          position: "relative",
+          flexGrow: 1,
+          marginTop: "15px",
+        }}
+      >
         <AutoPlaySwipeableViews
           axis={theme.direction === "rtl" ? "x-reverse" : "x"}
           index={activeStep}
@@ -76,17 +83,39 @@ export default function Carosel() {
           steps={0}
           sx={{
             background: "none",
-            width:"50%",
+            right: "0",
+            position: "absolute",
+            zIndex: "20",
             top: "0",
-            right:"0",
+            left: 0,
             alignItem: "center",
+            width: "inherit",
           }}
+          backButton={
+            <Button
+              sx={{
+                left: "0",
+                marginleft: "10px",
+                alignItems: "center",
+                background: "#07a389",
+                color: "white",
+              }}
+              size="large"
+              onClick={handleBack}
+              disabled={activeStep === 0}
+            >
+              {theme.direction === "rtl" ? (
+                <KeyboardArrowRight />
+              ) : (
+                <KeyboardArrowLeft />
+              )}
+            </Button>
+          }
           nextButton={
             <Button
               size="large"
               sx={{
-                top: "0",
-                left:"97%",
+                alignItems: "center",
                 right: "0",
                 background: "#07a389",
                 color: "white",
@@ -103,35 +132,6 @@ export default function Carosel() {
           }
         />
 
-        <MobileStepper
-          steps={0}
-          sx={{
-            background: "none",
-            right: "0",
-            top: "0",
-            alignItem: "center",
-            width:"50%",
-          }}
-          backButton={
-            <Button
-              sx={{
-                top: "0",
-                left: "0",
-                background: "#07a389",
-                color: "white",
-              }}
-              size="large"
-              onClick={handleBack}
-              disabled={activeStep === 0}
-            >
-              {theme.direction === "rtl" ? (
-                <KeyboardArrowRight />
-              ) : (
-                <KeyboardArrowLeft />
-              )}
-            </Button>
-          }
-        />
         <MobileStepper
           steps={maxSteps}
           position="satic"
