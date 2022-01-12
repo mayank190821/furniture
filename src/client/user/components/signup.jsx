@@ -63,20 +63,28 @@ export default function Login() {
     console.log(name);
     console.log(nameRegex.test(name));
   };
-  const validation = () => {
+  const validatePhone = () => {
     const phoneRegex = /^[0-9]{10}$/;
-    const emailRegex = /^(.*[a-z0-9]+@(.*[a-z]\.(.*[a-z])))$/;
-    const passwordRegex =
-      /^([0-9]*)(?=.*[a-z])(?=.*[!@#$%^&])(?=.*[^a-z0-9A-Z]).{8,20}$/;
-    if (emailRegex.test(user.userInput)) {
-      console.log("email verified");
-    }
     if (phoneRegex.test(user.userInput)) {
       console.log("phone verified");
     }
+  };
+  const validateEmail = () => {
+    const emailRegex = /^(.*[a-z0-9]+@(.*[a-z]\.(.*[a-z])))$/;
+    if (emailRegex.test(user.userInput)) {
+      console.log("email verified");
+    }
+  };
+  const validatePassword = () => {
+    const passwordRegex =
+      /^([0-9]*)(?=.*[a-z])(?=.*[!@#$%^&])(?=.*[^a-z0-9A-Z]).{8,20}$/;
     console.log(passwordRegex.test(user.password));
     console.log(user.password);
   };
+  const handleClick = () => {
+    console.log(user.firstName, user.address, user.lastName);
+  };
+
   return (
     <>
       <div>
@@ -97,6 +105,7 @@ export default function Login() {
               SignUp
             </h1>
             <Stack
+              component="form"
               spacing={1}
               direction="column"
               style={{
@@ -142,6 +151,7 @@ export default function Login() {
                   required
                   onChange={handleChange("phoneNumber")}
                   value={user.phoneNumber}
+                  onKeyDown={validatePhone}
                 />
                 <input
                   type="email"
@@ -151,7 +161,7 @@ export default function Login() {
                   required
                   onChange={handleChange("email")}
                   value={user.email}
-                  onKeyUp={validation}
+                  onKeyUp={validateEmail}
                 />
               </Stack>
               <input
@@ -174,7 +184,7 @@ export default function Login() {
                   required
                   onChange={handleChange("password")}
                   value={user.password}
-                  onKeyUp={validation}
+                  onKeyUp={validatePassword}
                 />
                 <input
                   type="password"
@@ -183,7 +193,7 @@ export default function Login() {
                   required
                   onChange={handleChange("confirmPassword")}
                   value={user.confirmPassword}
-                  onKeyUp={validation}
+                  onKeyUp={validatePassword}
                 />
               </Stack>
               <Button
@@ -196,6 +206,8 @@ export default function Login() {
                   bottom: -10,
                   zIndex: "2",
                 }}
+                required
+                onClick={handleClick}
               >
                 {" "}
                 Sign up

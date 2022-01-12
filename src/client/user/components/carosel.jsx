@@ -62,7 +62,7 @@ export default function Carosel() {
         >
           {images.map((step, index) => (
             <div>
-              {Math.abs(activeStep - index) <= 2 ? (
+              {Math.abs(activeStep - index) <=2 ? (
                 <Box
                   component="img"
                   sx={{
