@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import express from "express";
-import {signup} from '../controllers/controller.signup.js'
+import {signup} from './controllers/controller.signup.js'
 const exp =express();
 mongoose.connect(process.env.mongoUrl)
 mongoose.connection.on("connected",()=>{
