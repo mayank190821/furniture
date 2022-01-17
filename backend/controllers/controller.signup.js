@@ -7,7 +7,7 @@ const signup = async(req,res)=>{
             message:"User added"
         })
     }catch(err){
-        console.log(err)
+        console.log(err);
     }
 }
 export {signup};

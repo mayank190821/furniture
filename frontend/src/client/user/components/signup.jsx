@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import { makeStyles } from "@mui/styles";
 import { Button, Stack } from "@mui/material";
+import { signup } from "../api/signup.api";
 const useStyle = makeStyles((theme) => ({
   input: {
     width: "40%",
@@ -41,7 +42,7 @@ const useStyle = makeStyles((theme) => ({
     },
   },
 }));
-export default function Login() {
+export default function Signup() {
   const style = useStyle();
   const [user, setUser] = useState({
     firstName: "",
@@ -52,37 +53,63 @@ export default function Login() {
     password: "",
     confirmPassword: "",
   });
-
+  const [validate,setValidate]=useState({
+    firstName:false,
+    lastName:false,
+    phoneNumber:false,
+    address:false,
+    email:false,
+    password:false,
+    confirmPassword:false
+  });
   const handleChange = (name) => (event) => {
     setUser({ ...user, [name]: event.target.value });
-  };
-
-  const verifyName = (element) => {
     let nameRegex = /^[a-zA-Z]+$/;
-    const name = element === "firstName" ? user.firstName : user.lastName;
-    console.log(name);
-    console.log(nameRegex.test(name));
+    const fname = (name === "firstName" )? user.firstName : user.lastName;
+    handleValidate(name,nameRegex.test(fname));
+    console.log(validate, fname);
   };
+  const handleValidate=(field,value)=>{
+    setValidate({...validate,[field]:value});
+  }
   const validatePhone = () => {
     const phoneRegex = /^[0-9]{10}$/;
-    if (phoneRegex.test(user.userInput)) {
-      console.log("phone verified");
-    }
+    handleValidate("phoneNumber",phoneRegex.test(user.userInput));
   };
   const validateEmail = () => {
     const emailRegex = /^(.*[a-z0-9]+@(.*[a-z]\.(.*[a-z])))$/;
-    if (emailRegex.test(user.userInput)) {
-      console.log("email verified");
-    }
-  };
+    handleValidate("email",emailRegex.test(user.userInput));
+    };
   const validatePassword = () => {
     const passwordRegex =
       /^([0-9]*)(?=.*[a-z])(?=.*[!@#$%^&])(?=.*[^a-z0-9A-Z]).{8,20}$/;
-    console.log(passwordRegex.test(user.password));
-    console.log(user.password);
+    handleValidate("password",passwordRegex.test(user.password));
   };
-  const handleClick = () => {
-    console.log(user.firstName, user.address, user.lastName);
+  const validateConfirmPassword = () => {
+    const passwordRegex =
+      /^([0-9]*)(?=.*[a-z])(?=.*[!@#$%^&])(?=.*[^a-z0-9A-Z]).{8,20}$/;
+    handleValidate("confirmPassword",passwordRegex.test(user.confirmPassword));
+  };
+  const validateAddress=()=>{
+    const addRegex=/^(?=.*[!@#$%^&*()])$/;
+    if(addRegex.test(user.address) && user.address.length===0) handleValidate("address",false);
+    handleValidate("address",true);
+    
+  }
+  const checkValidation=()=>{
+    if(validate.address&&(validate.email||validate.phoneNumber)&& validate.firstName&&validate.lastName&& validate.password && validate.confirmPassword){
+      return true;
+    }
+  }
+  const handleClick = (event) => {
+    event.preventDefault();
+    console.log(checkValidation())
+    if(checkValidation()){
+      console.log(validate, user.firstName);
+      console.log(signup(user));
+
+    }
+
   };
 
   return (
@@ -127,7 +154,7 @@ export default function Login() {
                   required
                   onChange={handleChange("firstName")}
                   value={user.firstName}
-                  onKeyUp={verifyName("firstName")}
+                  // onKeyUp={verifyName("firstName")}
                 />
                 <input
                   type="text"
@@ -136,7 +163,7 @@ export default function Login() {
                   required
                   onChange={handleChange("lastName")}
                   value={user.lastName}
-                  onKeyUp={verifyName("lastName")}
+                  // onKeyUp={verifyName("lastName")}
                 />
               </Stack>
               <Stack
@@ -171,6 +198,7 @@ export default function Login() {
                 required
                 onChange={handleChange("address")}
                 value={user.address}
+                onKeyUp={validateAddress}
               />
               <Stack
                 direction="row"
@@ -193,7 +221,7 @@ export default function Login() {
                   required
                   onChange={handleChange("confirmPassword")}
                   value={user.confirmPassword}
-                  onKeyUp={validatePassword}
+                  onKeyUp={validateConfirmPassword}
                 />
               </Stack>
               <Button
