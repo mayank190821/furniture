@@ -53,63 +53,71 @@ export default function Signup() {
     password: "",
     confirmPassword: "",
   });
-  const [validate,setValidate]=useState({
-    firstName:false,
-    lastName:false,
-    phoneNumber:false,
-    address:false,
-    email:false,
-    password:false,
-    confirmPassword:false
+  const [validate, setValidate] = useState({
+    firstName: false,
+    lastName: false,
+    phoneNumber: false,
+    address: false,
+    email: false,
+    password: false,
+    confirmPassword: false,
   });
   const handleChange = (name) => (event) => {
     setUser({ ...user, [name]: event.target.value });
-    let nameRegex = /^[a-zA-Z]+$/;
-    const fname = (name === "firstName" )? user.firstName : user.lastName;
-    handleValidate(name,nameRegex.test(fname));
-    console.log(validate, fname);
   };
-  const handleValidate=(field,value)=>{
-    setValidate({...validate,[field]:value});
-  }
+  const handleValidate = (field, value) => {
+    setValidate({ ...validate, [field]: value });
+  };
+  const handleFirstName = () => {
+    let nameRegex = /^[a-zA-Z]+$/;
+    handleValidate("firstName", nameRegex.test(user.firstName));
+  };
+  const handleLastName = () => {
+    let nameRegex = /^[a-zA-Z]+$/;
+    handleValidate("lastName", nameRegex.test(user.lastName));
+  };
   const validatePhone = () => {
     const phoneRegex = /^[0-9]{10}$/;
-    handleValidate("phoneNumber",phoneRegex.test(user.userInput));
+    handleValidate("phoneNumber", phoneRegex.test(user.phoneNumber));
   };
   const validateEmail = () => {
     const emailRegex = /^(.*[a-z0-9]+@(.*[a-z]\.(.*[a-z])))$/;
-    handleValidate("email",emailRegex.test(user.userInput));
-    };
+    handleValidate("email", emailRegex.test(user.email));
+  };
   const validatePassword = () => {
     const passwordRegex =
       /^([0-9]*)(?=.*[a-z])(?=.*[!@#$%^&])(?=.*[^a-z0-9A-Z]).{8,20}$/;
-    handleValidate("password",passwordRegex.test(user.password));
+    handleValidate("password", passwordRegex.test(user.password));
   };
   const validateConfirmPassword = () => {
     const passwordRegex =
       /^([0-9]*)(?=.*[a-z])(?=.*[!@#$%^&])(?=.*[^a-z0-9A-Z]).{8,20}$/;
-    handleValidate("confirmPassword",passwordRegex.test(user.confirmPassword));
+    handleValidate("confirmPassword", passwordRegex.test(user.confirmPassword));
   };
-  const validateAddress=()=>{
-    const addRegex=/^(?=.*[!@#$%^&*()])$/;
-    if(addRegex.test(user.address) && user.address.length===0) handleValidate("address",false);
-    handleValidate("address",true);
-    
-  }
-  const checkValidation=()=>{
-    if(validate.address&&(validate.email||validate.phoneNumber)&& validate.firstName&&validate.lastName&& validate.password && validate.confirmPassword){
+  const validateAddress = () => {
+    const addRegex = /^(?=.*[!@#$%^&*()])$/;
+    if (addRegex.test(user.address) && user.address.length === 0)
+      handleValidate("address", false);
+    handleValidate("address", true);
+  };
+  const checkValidation = () => {
+    if (
+      validate.address &&
+      validate.email &&
+      validate.phoneNumber &&
+      validate.firstName &&
+      validate.lastName &&
+      validate.password &&
+      validate.confirmPassword
+    ) {
       return true;
     }
-  }
+  };
   const handleClick = (event) => {
     event.preventDefault();
-    console.log(checkValidation())
-    if(checkValidation()){
-      console.log(validate, user.firstName);
-      console.log(signup(user));
-
+    if (checkValidation()) {
+      signup(user)
     }
-
   };
 
   return (
@@ -154,7 +162,7 @@ export default function Signup() {
                   required
                   onChange={handleChange("firstName")}
                   value={user.firstName}
-                  // onKeyUp={verifyName("firstName")}
+                  onKeyUp={handleFirstName}
                 />
                 <input
                   type="text"
@@ -163,7 +171,7 @@ export default function Signup() {
                   required
                   onChange={handleChange("lastName")}
                   value={user.lastName}
-                  // onKeyUp={verifyName("lastName")}
+                  onKeyUp={handleLastName}
                 />
               </Stack>
               <Stack
@@ -178,7 +186,7 @@ export default function Signup() {
                   required
                   onChange={handleChange("phoneNumber")}
                   value={user.phoneNumber}
-                  onKeyDown={validatePhone}
+                  onKeyUp={validatePhone}
                 />
                 <input
                   type="email"
