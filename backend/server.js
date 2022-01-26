@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import express from "express";
-import {signup} from './controllers/controller.signup.js'
+import routes from "./routes/routes.js";
 const exp =express();
 mongoose.connect(process.env.mongoUrl)
 mongoose.connection.on("connected",()=>{
@@ -12,7 +12,7 @@ mongoose.connection.on("error",(e)=>{
 })
 
 exp.use(express.json())
-exp.post('/user/signup',signup)
+exp.use("/", routes);
 exp.listen(8080,()=>{
     console.log("listning...");
 })

@@ -5,7 +5,6 @@ import Login from "../components/login";
 
 export default function LoginPage() {
   const [page, setPage] = useState(true);
-
   function handlePageChange() {
     (page)?setPage(false):setPage(true);
   }

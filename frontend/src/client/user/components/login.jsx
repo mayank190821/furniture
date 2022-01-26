@@ -1,8 +1,12 @@
 import Paper from "@mui/material/Paper";
+import { Navigate } from "react-router-dom";
 import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import { makeStyles } from "@mui/styles";
 import { Button, Stack } from "@mui/material";
+import { loginApi } from "../api/login.api";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 const useStyle = makeStyles((theme) => ({
   input: {
     width: "90%",
@@ -24,6 +28,8 @@ const useStyle = makeStyles((theme) => ({
 }));
 export default function Login() {
   const style = useStyle();
+  const [visibility,setVisibility]=useState(true);
+  const [pwdType,setpwdType] = useState("password");
   const [user, setUser] = useState({
     userInput: "",
     password: "",
@@ -31,20 +37,32 @@ export default function Login() {
   const handleChange = (name) => (event) => {
     setUser({ ...user, [name]: event.target.value });
   };
-  const validation = () => {
-    const phoneRegex = /^[0-9]{10}$/;
-    const emailRegex = /^(.*[a-z0-9]+@(.*[a-z]\.(.*[a-z])))$/;
-    const passwordRegex =
-      /^([0-9]*)(?=.*[a-z])(?=.*[!@#$%^&])(?=.*[^a-z0-9A-Z]).{8,20}$/;
-    if (emailRegex.test(user.userInput)) {
-      console.log("email verified");
-    }
-    if (phoneRegex.test(user.userInput)) {
-      console.log("phone verified");
-    }
-    console.log(passwordRegex.test(user.password));
-    console.log(user.password);
+  const [redirect, setRedirect] = useState(false);
+
+  const handleClick = (event) => {
+    event.preventDefault();
+    loginApi(user)
+      .then((res) => {
+        console.log(res);
+        if (res.status === 200) setRedirect(true);
+        else alert("invalid credentials");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
+  const handleVisibility=(event)=>{
+    event.preventDefault();
+    (visibility)?    setpwdType("text")
+    :    setpwdType("password")
+    setVisibility(!visibility)
+
+  }
+
+  if (redirect) {
+    console.log("lo");
+    return <Navigate to="/home" />;
+  }
   return (
     <>
       <div>
@@ -84,23 +102,40 @@ export default function Login() {
                   className={style.input}
                   placeholder="Phone / Email"
                   onChange={handleChange("userInput")}
-                  onKeyUp={validation}
                   required
                 />
               </Stack>
               <Stack
                 direction="row"
                 spacing={2}
-                style={{ display: "flex", justifyContent: "center" }}
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  position: "relative",
+                }}
               >
                 <input
-                  type="password"
+                  type={pwdType}
                   className={style.input}
                   placeholder="Password"
                   required
                   onChange={handleChange("password")}
-                  onKeyUp={validation}
                 />
+                <button
+                  onClick={handleVisibility}
+                  style={{
+                    position: "absolute",
+                    outline: "none",
+                    background: "transparent",
+                    border: "none",
+                    cursor: "pointer",
+                    right: 0,
+                    bottom: 20,
+                  }}
+                >
+                  {(visibility)?
+                  <VisibilityOffIcon sx={{color: "#00cba9"}}/>:<VisibilityIcon sx={{color: "#00cba9"}}/>}
+                </button>
               </Stack>
               <Stack direction="row" spacing={4}>
                 <Stack direction="row" spacing={1}>
@@ -125,6 +160,7 @@ export default function Login() {
                   bottom: -10,
                   zIndex: "2",
                 }}
+                onClick={handleClick}
               >
                 {" "}
                 Login
