@@ -34,11 +34,6 @@ const images = [
       "https://cdn.pixabay.com/photo/2017/08/27/10/16/interior-2685521__340.jpg",
     label: "Tools",
   },
-  {
-    imgPath:
-      "https://cdn.pixabay.com/photo/2015/04/20/06/46/office-730681__340.jpg",
-    label: "Decorators",
-  },
 ];
 const ImageButton = styled(ButtonBase)(({ theme }) => ({
   position: "relative",
@@ -121,7 +116,7 @@ export default function Categories() {
             focusRipple
             key={image.label}
             style={{
-              marginTop: "30px",
+              marginTop: "50px",
               width: "200px",
             }}
           >
