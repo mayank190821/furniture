@@ -1,13 +1,9 @@
-import React, { useState } from "react";
-import Signup from "../components/signup";
-import { Typography, Button } from "@mui/material";
+import React from "react";
+import { Typography } from "@mui/material";
 import Login from "../components/login";
-
-export default function LoginPage() {
-  const [page, setPage] = useState(true);
-  function handlePageChange() {
-    (page)?setPage(false):setPage(true);
-  }
+import Signup from "../components/signup";
+export default function AdminLoginPage() {
+  
   return (
     <>
       <div
@@ -55,28 +51,11 @@ export default function LoginPage() {
             We serve the best Product
             <br /> Quality is the key of our Success
             <br />
-            <Button
-              variant="contained"
-              onClick={handlePageChange}
-              style={{
-                color: "black",
-                marginTop: "15px",
-                fontSize: "17px",
-                fontWeight: "bold",
-                background: "#00cba9",
-              }}
-            >
-              {(page) ? "SignUp" : "login"}
-              <i
-                class="fa fa-arrow-right"
-                aria-hidden="true"
-                style={{ marginLeft: "3px" }}
-              ></i>
-            </Button>
           </Typography>
         </div>
         <div className="cont2" style={{ margin: "auto" }}>
-          {(page) ? <Login /> : <Signup />}
+          <Login />
+          {/* <Signup></Signup> */}
         </div>
       </div>
     </>
